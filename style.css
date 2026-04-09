@@ -1,41 +1,58 @@
-/* HEART BACKGROUND */
+body {
+  margin:0;
+  font-family:Poppins, sans-serif;
+  background:#0f2027;
+  color:white;
+  scroll-behavior:smooth;
+}
+
+nav { display:flex; justify-content:space-between; padding:20px; z-index:2; position:relative; }
+
+.btn {
+  background: linear-gradient(45deg,#00f7ff,#ff00ff);
+  border:none;
+  padding:12px 25px;
+  border-radius:30px;
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+}
+.btn:hover { transform:scale(1.1); box-shadow:0 0 20px #00f7ff; }
+
+.card {
+  background: rgba(255,255,255,0.05);
+  padding:25px;
+  border-radius:20px;
+  margin:20px auto;
+  width:85%;
+  backdrop-filter:blur(10px);
+  transition:.3s;
+}
+.card:hover { transform:translateY(-10px); }
+
 .hearts-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
+  position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden;
 }
-
 .heart {
-  position: absolute;
-  bottom: -50px;
-  font-size: 20px;
+  position:absolute;
+  bottom:-50px;
+  font-size:20px;
   animation: floatUp linear forwards;
-  cursor: pointer;
-  pointer-events: auto;
-  user-select: none;
+  cursor:pointer;
+  pointer-events:auto;
 }
+@keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity:0; } }
+.blast { animation: explode 0.5s ease forwards; }
+@keyframes explode { to { transform: scale(2); opacity:0; } }
 
-/* FLOAT ANIMATION */
-@keyframes floatUp {
-  to {
-    transform: translateY(-110vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* BLAST */
-.blast {
-  animation: explode 0.5s ease forwards;
-}
-
-@keyframes explode {
-  to {
-    transform: scale(2);
-    opacity: 0;
-  }
+/* Skills Circle */
+.circle {
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
 }
