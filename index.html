@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro Portfolio</title>
+<title>Pro Neon Portfolio</title>
 
 <style>
 
@@ -11,6 +11,7 @@
   --bg: #0f2027;
   --text: white;
   --card: rgba(255,255,255,0.1);
+  --neon: #00f7ff;
 }
 
 .light {
@@ -21,28 +22,39 @@
 
 body {
   margin: 0;
-  font-family: Arial;
+  font-family: 'Poppins', sans-serif;
   background: var(--bg);
   color: var(--text);
   transition: 0.5s;
 }
 
-/* NAVBAR */
+/* NAV */
 nav {
   position: sticky;
   top: 0;
-  padding: 15px;
-  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
+  padding: 15px;
+  backdrop-filter: blur(10px);
 }
 
-/* BUTTON */
-.toggle {
+/* NEON BUTTON */
+.neon-btn {
+  padding: 10px 20px;
+  border: 2px solid var(--neon);
+  color: var(--neon);
+  background: transparent;
+  border-radius: 30px;
   cursor: pointer;
-  padding: 8px 15px;
-  border-radius: 20px;
-  border: none;
+  transition: 0.3s;
+  box-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon) inset;
+}
+
+.neon-btn:hover {
+  background: var(--neon);
+  color: black;
+  box-shadow: 0 0 20px var(--neon), 0 0 40px var(--neon);
+  transform: scale(1.1);
 }
 
 /* SECTION */
@@ -51,22 +63,28 @@ section {
   text-align: center;
 }
 
-/* GLASS CARD */
+/* GLASS */
 .card {
   margin: 20px auto;
   padding: 20px;
   width: 80%;
   background: var(--card);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   border-radius: 20px;
   transition: 0.3s;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: translateY(-10px);
 }
 
-/* SKILLS */
+/* TYPING */
+.typing {
+  color: var(--neon);
+  height: 30px;
+}
+
+/* SKILL */
 .bar {
   height: 10px;
   background: gray;
@@ -77,7 +95,13 @@ section {
 .fill {
   height: 100%;
   width: 0;
-  background: lime;
+  background: var(--neon);
+}
+
+/* COUNTER */
+.counter {
+  font-size: 30px;
+  color: var(--neon);
 }
 
 /* ANIMATION */
@@ -104,18 +128,19 @@ section {
 
 <nav>
   <h3>My Portfolio</h3>
-  <button class="toggle" onclick="toggleMode()">🌙</button>
+  <button class="neon-btn" onclick="toggleMode()">🌙 Mode</button>
 </nav>
 
 <section class="hidden">
-  <h1>Hi, I'm Md Motaleb Mia</h1>
-  <p>Creative Developer 🚀</p>
+  <h1>Hi, I'm Your Name</h1>
+  <div class="typing" id="typing"></div>
+  <button class="neon-btn" onclick="clickEffect(this)">Hire Me 🚀</button>
 </section>
 
 <section class="hidden">
   <div class="card">
     <h2>About Me</h2>
-    <p>I am learning web development and building cool projects.</p>
+    <p>I build modern and animated websites.</p>
   </div>
 </section>
 
@@ -124,21 +149,29 @@ section {
     <h2>Skills</h2>
 
     <p>HTML</p>
-    <div class="bar"><div class="fill" style="width:90%"></div></div>
+    <div class="bar"><div class="fill" data-width="90%"></div></div>
 
     <p>CSS</p>
-    <div class="bar"><div class="fill" style="width:80%"></div></div>
+    <div class="bar"><div class="fill" data-width="80%"></div></div>
 
     <p>JavaScript</p>
-    <div class="bar"><div class="fill" style="width:70%"></div></div>
+    <div class="bar"><div class="fill" data-width="70%"></div></div>
 
   </div>
 </section>
 
 <section class="hidden">
   <div class="card">
+    <h2>My Stats</h2>
+    <div class="counter" data-target="50">0</div>
+    <p>Projects Completed</p>
+  </div>
+</section>
+
+<section class="hidden">
+  <div class="card">
     <h2>Contact</h2>
-    <p>Email: propeeel@gmail.com</p>
+    <button class="neon-btn" onclick="alert('Email me!')">Contact Me</button>
   </div>
 </section>
 
@@ -149,16 +182,63 @@ function toggleMode(){
   document.body.classList.toggle("light");
 }
 
+// TYPING
+const texts = ["Web Developer", "UI Designer", "Freelancer"];
+let i=0,j=0,cur="",del=false;
+
+function type(){
+  cur = texts[i];
+  if(!del){
+    document.getElementById("typing").innerHTML = cur.substring(0,j++);
+    if(j>cur.length){ del=true; setTimeout(type,1000); return;}
+  } else {
+    document.getElementById("typing").innerHTML = cur.substring(0,j--);
+    if(j==0){ del=false; i=(i+1)%texts.length;}
+  }
+  setTimeout(type, del?50:100);
+}
+type();
+
 // SCROLL ANIMATION
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
+const obs = new IntersectionObserver(e=>{
+  e.forEach(entry=>{
     if(entry.isIntersecting){
       entry.target.classList.add("show");
+
+      // SKILL ANIMATION
+      entry.target.querySelectorAll('.fill').forEach(f=>{
+        f.style.width = f.getAttribute('data-width');
+      });
+
+      // COUNTER
+      entry.target.querySelectorAll('.counter').forEach(c=>{
+        let target = c.getAttribute('data-target');
+        let count = 0;
+        let inc = target/100;
+        let update=()=>{
+          count+=inc;
+          if(count<target){
+            c.innerText = Math.floor(count);
+            requestAnimationFrame(update);
+          } else {
+            c.innerText = target;
+          }
+        }
+        update();
+      });
+
     }
   });
 });
 
-document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
+document.querySelectorAll('.hidden').forEach(el=>obs.observe(el));
+
+// BUTTON CLICK EFFECT
+function clickEffect(btn){
+  btn.style.transform = "scale(1.2)";
+  setTimeout(()=> btn.style.transform="scale(1)",200);
+  alert("Let's work together 😎");
+}
 
 </script>
 
