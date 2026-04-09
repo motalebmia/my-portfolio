@@ -3,136 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro Portfolio X</title>
+<title>Pro Portfolio Ultra</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
 <style>
 
 :root {
   --bg: #0f2027;
+  --card: rgba(255,255,255,0.05);
+  --accent: linear-gradient(45deg,#00f7ff,#ff00ff);
   --text: #fff;
-  --accent: linear-gradient(45deg,#00f7ff,#8a2be2);
 }
 
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
+  margin:0;
+  font-family:'Poppins',sans-serif;
   background: var(--bg);
   color: var(--text);
+  scroll-behavior: smooth;
 }
 
 /* NAV */
 nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
+  display:flex;
+  justify-content:space-between;
+  padding:20px;
 }
 
-/* NEW BUTTON */
+/* BUTTON */
 .btn {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 50px;
   background: var(--accent);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: 0.3s;
+  border:none;
+  padding:12px 25px;
+  border-radius:30px;
+  color:white;
+  cursor:pointer;
+  transition:.3s;
 }
 
 .btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px #00f7ff;
-}
-
-/* ripple */
-.btn::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  background: rgba(255,255,255,0.5);
-  border-radius: 50%;
-  transform: translate(-50%,-50%);
-  opacity: 0;
-}
-
-.btn:active::after {
-  width: 200px;
-  height: 200px;
-  opacity: 1;
-  transition: 0.5s;
+  transform:scale(1.1);
+  box-shadow:0 0 20px #00f7ff;
 }
 
 /* SECTION */
 section {
-  padding: 80px 20px;
-  text-align: center;
-  animation: fadeUp 1s ease;
-}
-
-@keyframes fadeUp {
-  from {opacity:0; transform:translateY(50px);}
-  to {opacity:1; transform:translateY(0);}
+  padding:80px 20px;
+  text-align:center;
 }
 
 /* CARD */
 .card {
-  background: rgba(255,255,255,0.05);
-  padding: 25px;
-  border-radius: 20px;
-  margin: 20px auto;
-  width: 80%;
-  backdrop-filter: blur(10px);
-  transition: 0.3s;
+  background: var(--card);
+  padding:25px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  margin:20px auto;
+  width:85%;
+  transition:.3s;
 }
 
 .card:hover {
-  transform: translateY(-10px);
+  transform:translateY(-10px);
 }
 
-/* TYPING */
-.typing {
-  color: #00f7ff;
-  margin: 10px;
+/* PROJECT GRID */
+.projects {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
 }
 
-/* SKILL CIRCLE */
-.skill {
-  display: inline-block;
-  margin: 20px;
+.project {
+  position:relative;
+  overflow:hidden;
+  border-radius:20px;
 }
 
+.project img {
+  width:100%;
+  display:block;
+  transition:.5s;
+}
+
+.project:hover img {
+  transform:scale(1.2);
+}
+
+.overlay {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:.5s;
+}
+
+.project:hover .overlay {
+  opacity:1;
+}
+
+/* SKILLS */
 .circle {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: conic-gradient(#00f7ff 0%, #222 0%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
 }
 
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #111;
-  padding: 15px 25px;
-  border-radius: 10px;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: 0.5s;
+/* FORM */
+input, textarea {
+  width:80%;
+  margin:10px;
+  padding:12px;
+  border:none;
+  border-radius:10px;
 }
 
-.toast.show {
-  opacity: 1;
-  transform: translateY(0);
+.hidden {
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.show {
+  opacity:1;
+  transform:translateY(0);
 }
 
 </style>
@@ -141,85 +147,89 @@ section {
 <body>
 
 <nav>
-  <h2>Portfolio</h2>
-  <button class="btn" onclick="toggleMode()">Mode</button>
+  <h2>My Brand</h2>
+  <button class="btn" onclick="toast()">Hire Me</button>
 </nav>
 
-<section>
-  <h1>Hi, I'm Md Motaleb Mia</h1>
-  <div class="typing" id="typing"></div>
-  <button class="btn" onclick="showToast()">Hire Me 🚀</button>
+<section class="hidden">
+  <h1>Hi, I'm Your Name</h1>
+  <p id="typing"></p>
 </section>
 
-<section>
+<section class="hidden">
   <div class="card">
-    <h2>About Me</h2>
-    <p>I create premium websites & digital experiences.</p>
+    <h2>About</h2>
+    <p>I design high-end digital experiences.</p>
   </div>
 </section>
 
-<section>
+<!-- SKILLS -->
+<section class="hidden">
   <div class="card">
     <h2>Skills</h2>
 
-    <div class="skill">
-      <div class="circle" data-percent="85">75%</div>
-      <p>Editing</p>
+    <div class="circle" data="85">Editing</div>
+    <div class="circle" data="75">Marketing</div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="hidden">
+  <h2>Projects</h2>
+  <div class="projects">
+
+    <div class="project">
+      <img src="https://picsum.photos/400/300">
+      <div class="overlay">Project 1</div>
     </div>
 
-    <div class="skill">
-      <div class="circle" data-percent="75">49%</div>
-      <p>Marketing</p>
+    <div class="project">
+      <img src="https://picsum.photos/401/300">
+      <div class="overlay">Project 2</div>
     </div>
 
   </div>
 </section>
 
-<section>
+<!-- CONTACT -->
+<section class="hidden">
   <div class="card">
     <h2>Contact</h2>
-    <button class="btn" onclick="showToast()">Contact Me</button>
+    <input placeholder="Your Name">
+    <input placeholder="Email">
+    <textarea placeholder="Message"></textarea>
+    <button class="btn" onclick="toast()">Send</button>
   </div>
 </section>
-
-<div class="toast" id="toast">Message Sent Successfully ✔</div>
 
 <script>
 
-// TYPING
-const texts = ["Creative Developer","Video Editor","Digital Marketer"];
-let i=0,j=0,cur="",del=false;
+// typing
+const t = ["Creative Mind","Editor","Marketer"];
+let i=0,j=0,del=false;
 
 function type(){
-  cur = texts[i];
-  if(!del){
-    document.getElementById("typing").innerHTML = cur.substring(0,j++);
-    if(j>cur.length){ del=true; setTimeout(type,1000); return;}
-  } else {
-    document.getElementById("typing").innerHTML = cur.substring(0,j--);
-    if(j==0){ del=false; i=(i+1)%texts.length;}
-  }
+  let cur=t[i];
+  document.getElementById("typing").innerHTML=cur.substring(0,j);
+  if(!del){ j++; if(j>cur.length){del=true; setTimeout(type,1000); return;}}
+  else { j--; if(j==0){del=false; i=(i+1)%t.length;}}
   setTimeout(type, del?50:100);
 }
 type();
 
-// TOAST
-function showToast(){
-  let t = document.getElementById("toast");
-  t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),3000);
+// toast
+function toast(){
+  alert("We'll contact you soon 🚀");
 }
 
-// SKILL ANIMATION
-document.querySelectorAll('.circle').forEach(c=>{
-  let percent = c.getAttribute('data-percent');
-  let i=0;
-  let interval = setInterval(()=>{
-    i++;
-    c.style.background = `conic-gradient(#00f7ff ${i}%, #222 ${i}%)`;
-    if(i>=percent) clearInterval(interval);
-  },20);
+// scroll anim
+const obs=new IntersectionObserver(e=>{
+ e.forEach(x=>{
+   if(x.isIntersecting) x.target.classList.add("show");
+ });
 });
+document.querySelectorAll(".hidden").forEach(el=>obs.observe(el));
 
 </script>
 
