@@ -3,21 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro Neon Portfolio</title>
+<title>Pro Portfolio X</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 
 :root {
   --bg: #0f2027;
-  --text: white;
-  --card: rgba(255,255,255,0.1);
-  --neon: #00f7ff;
-}
-
-.light {
-  --bg: #f5f5f5;
-  --text: #111;
-  --card: rgba(0,0,0,0.1);
+  --text: #fff;
+  --accent: linear-gradient(45deg,#00f7ff,#8a2be2);
 }
 
 body {
@@ -25,52 +20,73 @@ body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg);
   color: var(--text);
-  transition: 0.5s;
 }
 
 /* NAV */
 nav {
-  position: sticky;
-  top: 0;
   display: flex;
   justify-content: space-between;
-  padding: 15px;
-  backdrop-filter: blur(10px);
+  padding: 20px;
 }
 
-/* NEON BUTTON */
-.neon-btn {
-  padding: 10px 20px;
-  border: 2px solid var(--neon);
-  color: var(--neon);
-  background: transparent;
-  border-radius: 30px;
+/* NEW BUTTON */
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 50px;
+  background: var(--accent);
+  color: white;
+  font-weight: bold;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
   transition: 0.3s;
-  box-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon) inset;
 }
 
-.neon-btn:hover {
-  background: var(--neon);
-  color: black;
-  box-shadow: 0 0 20px var(--neon), 0 0 40px var(--neon);
+.btn:hover {
   transform: scale(1.1);
+  box-shadow: 0 0 20px #00f7ff;
+}
+
+/* ripple */
+.btn::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  opacity: 0;
+}
+
+.btn:active::after {
+  width: 200px;
+  height: 200px;
+  opacity: 1;
+  transition: 0.5s;
 }
 
 /* SECTION */
 section {
   padding: 80px 20px;
   text-align: center;
+  animation: fadeUp 1s ease;
 }
 
-/* GLASS */
+@keyframes fadeUp {
+  from {opacity:0; transform:translateY(50px);}
+  to {opacity:1; transform:translateY(0);}
+}
+
+/* CARD */
 .card {
-  margin: 20px auto;
-  padding: 20px;
-  width: 80%;
-  background: var(--card);
-  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.05);
+  padding: 25px;
   border-radius: 20px;
+  margin: 20px auto;
+  width: 80%;
+  backdrop-filter: blur(10px);
   transition: 0.3s;
 }
 
@@ -80,45 +96,43 @@ section {
 
 /* TYPING */
 .typing {
-  color: var(--neon);
-  height: 30px;
+  color: #00f7ff;
+  margin: 10px;
 }
 
-/* SKILL */
-.bar {
-  height: 10px;
-  background: gray;
+/* SKILL CIRCLE */
+.skill {
+  display: inline-block;
+  margin: 20px;
+}
+
+.circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(#00f7ff 0%, #222 0%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #111;
+  padding: 15px 25px;
   border-radius: 10px;
-  overflow: hidden;
-}
-
-.fill {
-  height: 100%;
-  width: 0;
-  background: var(--neon);
-}
-
-/* COUNTER */
-.counter {
-  font-size: 30px;
-  color: var(--neon);
-}
-
-/* ANIMATION */
-.hidden {
   opacity: 0;
-  transform: translateY(40px);
-  transition: 1s;
+  transform: translateY(50px);
+  transition: 0.5s;
 }
 
-.show {
+.toast.show {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* MOBILE */
-@media(max-width:600px){
-  .card { width: 95%; }
 }
 
 </style>
@@ -127,63 +141,53 @@ section {
 <body>
 
 <nav>
-  <h3>My Portfolio</h3>
-  <button class="neon-btn" onclick="toggleMode()">🌙 Mode</button>
+  <h2>Portfolio</h2>
+  <button class="btn" onclick="toggleMode()">Mode</button>
 </nav>
 
-<section class="hidden">
-  <h1>Hi, I'm Your Name</h1>
+<section>
+  <h1>Hi, I'm Md Motaleb Mia</h1>
   <div class="typing" id="typing"></div>
-  <button class="neon-btn" onclick="clickEffect(this)">Hire Me 🚀</button>
+  <button class="btn" onclick="showToast()">Hire Me 🚀</button>
 </section>
 
-<section class="hidden">
+<section>
   <div class="card">
     <h2>About Me</h2>
-    <p>I build modern and animated websites.</p>
+    <p>I create premium websites & digital experiences.</p>
   </div>
 </section>
 
-<section class="hidden">
+<section>
   <div class="card">
     <h2>Skills</h2>
 
-    <p>HTML</p>
-    <div class="bar"><div class="fill" data-width="90%"></div></div>
+    <div class="skill">
+      <div class="circle" data-percent="85">75%</div>
+      <p>Editing</p>
+    </div>
 
-    <p>CSS</p>
-    <div class="bar"><div class="fill" data-width="80%"></div></div>
-
-    <p>JavaScript</p>
-    <div class="bar"><div class="fill" data-width="70%"></div></div>
+    <div class="skill">
+      <div class="circle" data-percent="75">49%</div>
+      <p>Marketing</p>
+    </div>
 
   </div>
 </section>
 
-<section class="hidden">
-  <div class="card">
-    <h2>My Stats</h2>
-    <div class="counter" data-target="50">0</div>
-    <p>Projects Completed</p>
-  </div>
-</section>
-
-<section class="hidden">
+<section>
   <div class="card">
     <h2>Contact</h2>
-    <button class="neon-btn" onclick="alert('Email me!')">Contact Me</button>
+    <button class="btn" onclick="showToast()">Contact Me</button>
   </div>
 </section>
+
+<div class="toast" id="toast">Message Sent Successfully ✔</div>
 
 <script>
 
-// DARK MODE
-function toggleMode(){
-  document.body.classList.toggle("light");
-}
-
 // TYPING
-const texts = ["Web Developer", "UI Designer", "Freelancer"];
+const texts = ["Creative Developer","Video Editor","Digital Marketer"];
 let i=0,j=0,cur="",del=false;
 
 function type(){
@@ -199,46 +203,23 @@ function type(){
 }
 type();
 
-// SCROLL ANIMATION
-const obs = new IntersectionObserver(e=>{
-  e.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-
-      // SKILL ANIMATION
-      entry.target.querySelectorAll('.fill').forEach(f=>{
-        f.style.width = f.getAttribute('data-width');
-      });
-
-      // COUNTER
-      entry.target.querySelectorAll('.counter').forEach(c=>{
-        let target = c.getAttribute('data-target');
-        let count = 0;
-        let inc = target/100;
-        let update=()=>{
-          count+=inc;
-          if(count<target){
-            c.innerText = Math.floor(count);
-            requestAnimationFrame(update);
-          } else {
-            c.innerText = target;
-          }
-        }
-        update();
-      });
-
-    }
-  });
-});
-
-document.querySelectorAll('.hidden').forEach(el=>obs.observe(el));
-
-// BUTTON CLICK EFFECT
-function clickEffect(btn){
-  btn.style.transform = "scale(1.2)";
-  setTimeout(()=> btn.style.transform="scale(1)",200);
-  alert("Let's work together 😎");
+// TOAST
+function showToast(){
+  let t = document.getElementById("toast");
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),3000);
 }
+
+// SKILL ANIMATION
+document.querySelectorAll('.circle').forEach(c=>{
+  let percent = c.getAttribute('data-percent');
+  let i=0;
+  let interval = setInterval(()=>{
+    i++;
+    c.style.background = `conic-gradient(#00f7ff ${i}%, #222 ${i}%)`;
+    if(i>=percent) clearInterval(interval);
+  },20);
+});
 
 </script>
 
