@@ -1,0 +1,41 @@
+/* HEART BACKGROUND */
+.hearts-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 20px;
+  animation: floatUp linear forwards;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+}
+
+/* FLOAT ANIMATION */
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* BLAST */
+.blast {
+  animation: explode 0.5s ease forwards;
+}
+
+@keyframes explode {
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
