@@ -3,236 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro Portfolio Ultra</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-
-<style>
-
-:root {
-  --bg: #0f2027;
-  --card: rgba(255,255,255,0.05);
-  --accent: linear-gradient(45deg,#00f7ff,#ff00ff);
-  --text: #fff;
-}
-
-body {
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  scroll-behavior: smooth;
-}
-
-/* NAV */
-nav {
-  display:flex;
-  justify-content:space-between;
-  padding:20px;
-}
-
-/* BUTTON */
-.btn {
-  background: var(--accent);
-  border:none;
-  padding:12px 25px;
-  border-radius:30px;
-  color:white;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.btn:hover {
-  transform:scale(1.1);
-  box-shadow:0 0 20px #00f7ff;
-}
-
-/* SECTION */
-section {
-  padding:80px 20px;
-  text-align:center;
-}
-
-/* CARD */
-.card {
-  background: var(--card);
-  padding:25px;
-  border-radius:20px;
-  backdrop-filter:blur(10px);
-  margin:20px auto;
-  width:85%;
-  transition:.3s;
-}
-
-.card:hover {
-  transform:translateY(-10px);
-}
-
-/* PROJECT GRID */
-.projects {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-}
-
-.project {
-  position:relative;
-  overflow:hidden;
-  border-radius:20px;
-}
-
-.project img {
-  width:100%;
-  display:block;
-  transition:.5s;
-}
-
-.project:hover img {
-  transform:scale(1.2);
-}
-
-.overlay {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.7);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  transition:.5s;
-}
-
-.project:hover .overlay {
-  opacity:1;
-}
-
-/* SKILLS */
-.circle {
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-
-/* FORM */
-input, textarea {
-  width:80%;
-  margin:10px;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-}
-
-.hidden {
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
-}
-
-.show {
-  opacity:1;
-  transform:translateY(0);
-}
-
-</style>
+<title>My Portfolio</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
+<div class="hearts-container"></div>
+
 <nav>
-  <h2>My Brand</h2>
-  <button class="btn" onclick="toast()">Hire Me</button>
+  <h2>My Portfolio</h2>
+  <button class="btn">Hire Me</button>
 </nav>
 
-<section class="hidden">
+<section>
   <h1>Hi, I'm Your Name</h1>
   <p id="typing"></p>
 </section>
 
-<section class="hidden">
+<section>
   <div class="card">
-    <h2>About</h2>
-    <p>I design high-end digital experiences.</p>
+    <h2>About Me</h2>
+    <p>I design high-end digital experiences and websites.</p>
   </div>
 </section>
 
-<!-- SKILLS -->
-<section class="hidden">
+<section>
   <div class="card">
     <h2>Skills</h2>
-
     <div class="circle" data="85">Editing</div>
     <div class="circle" data="75">Marketing</div>
-
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section class="hidden">
-  <h2>Projects</h2>
-  <div class="projects">
-
-    <div class="project">
-      <img src="https://picsum.photos/400/300">
-      <div class="overlay">Project 1</div>
-    </div>
-
-    <div class="project">
-      <img src="https://picsum.photos/401/300">
-      <div class="overlay">Project 2</div>
-    </div>
-
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="hidden">
+<section>
   <div class="card">
     <h2>Contact</h2>
     <input placeholder="Your Name">
     <input placeholder="Email">
     <textarea placeholder="Message"></textarea>
-    <button class="btn" onclick="toast()">Send</button>
+    <button class="btn">Send</button>
   </div>
 </section>
 
-<script>
-
-// typing
-const t = ["Creative Mind","Editor","Marketer"];
-let i=0,j=0,del=false;
-
-function type(){
-  let cur=t[i];
-  document.getElementById("typing").innerHTML=cur.substring(0,j);
-  if(!del){ j++; if(j>cur.length){del=true; setTimeout(type,1000); return;}}
-  else { j--; if(j==0){del=false; i=(i+1)%t.length;}}
-  setTimeout(type, del?50:100);
-}
-type();
-
-// toast
-function toast(){
-  alert("We'll contact you soon 🚀");
-}
-
-// scroll anim
-const obs=new IntersectionObserver(e=>{
- e.forEach(x=>{
-   if(x.isIntersecting) x.target.classList.add("show");
- });
-});
-document.querySelectorAll(".hidden").forEach(el=>obs.observe(el));
-
-</script>
-
-  <div class="hearts-container"></div>
+<script src="script.js"></script>
 </body>
 </html>
